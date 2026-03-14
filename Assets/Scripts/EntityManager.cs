@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class EntityManager : MonoBehaviour
 {
-    private List<Entity> _entities;
+    public List<Entity> entities;
+    public List<Actor> actors;
+    public Player player;
 
     public static EntityManager Instance;
     
@@ -17,13 +19,10 @@ public class EntityManager : MonoBehaviour
             return;
         }
         Instance = this;
-        _entities = FindObjectsByType<Entity>(FindObjectsSortMode.None).ToList();
+        entities = FindObjectsByType<Entity>(FindObjectsSortMode.None).ToList();
+        actors = FindObjectsByType<Actor>(FindObjectsSortMode.None).ToList();
+        player = FindAnyObjectByType<Player>();
     }
     
-    public bool IsTileOccupied(Tile tile)
-    {
-        var tileCoords = tile.Coordinates;
-        var occupied = _entities.Any(e => e.Coordinates.Equals2D(tileCoords) && e.StandingOnTile == tile);
-        return occupied;
-    }
+
 }

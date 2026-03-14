@@ -20,6 +20,11 @@ public readonly struct HexCoordinates : IEquatable<HexCoordinates>
         return new HexCoordinates(first.q + second.q, first.r + second.r, first.s + second.s, first.h + second.h);
     }
     
+    public static HexCoordinates operator-(HexCoordinates first, HexCoordinates second)
+    {
+        return new HexCoordinates(first.q - second.q, first.r - second.r, first.s - second.s, first.h - second.h);
+    }
+    
     public static HexCoordinates operator*(int scalar, HexCoordinates coords)
     {
         return new HexCoordinates(coords.q * scalar, coords.r * scalar, coords.s * scalar, coords.h * scalar);
@@ -90,6 +95,11 @@ public readonly struct HexCoordinates : IEquatable<HexCoordinates>
     public static HexCoordinates BackRight => new HexCoordinates(0, 1, -1);
 
 
+    public static int Distance(HexCoordinates a, HexCoordinates b)
+    {
+        return (Mathf.Abs(a.q - b.q) + Mathf.Abs(a.r - b.r) + Mathf.Abs(a.s - b.s)) / 2;
+    }
+    
     public bool Equals(HexCoordinates other)
     {
         return q == other.q && r == other.r && s == other.s && h == other.h;

@@ -17,7 +17,7 @@ public class HexSnapper : MonoBehaviour
     private void Update()
     {
         
-        _hexGridSettings ??= hexGridSettingsOverride ?? GetComponentInParent<HexGrid>().hexGridSettings;
+        _hexGridSettings ??= hexGridSettingsOverride ?? GetComponentInParent<HexGrid>().settings;
         
         if (Vector3.Distance(transform.position, _lastPosition) > 0.01f)
         {

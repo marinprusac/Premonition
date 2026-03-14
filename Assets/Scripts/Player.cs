@@ -1,14 +1,20 @@
 using UnityEngine;
 
-[RequireComponent(typeof(MovableEntity))]
+[RequireComponent(typeof(Actor))]
 public class Player : MonoBehaviour
 {
     
-    public MovableEntity movableEntity;
+    public Actor actor;
     
-    private void Start()
+    public Sword sword;
+    public Shield shield;
+    
+    
+    private void Awake()
     {
-        movableEntity = GetComponent<MovableEntity>();
+        actor = GetComponent<Actor>();
     }
+    
+    
     
 }

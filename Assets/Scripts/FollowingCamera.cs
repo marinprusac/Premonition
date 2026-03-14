@@ -5,7 +5,7 @@ using Vector3 = UnityEngine.Vector3;
 
 public class FollowingCamera : MonoBehaviour
 {
-    [SerializeField] private MovableEntity target;
+    [SerializeField] private Actor target;
     private float _distanceOffset;
     private float _heightOffset;
     private float _startingHeight;

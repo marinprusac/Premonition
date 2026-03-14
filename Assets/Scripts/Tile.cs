@@ -7,22 +7,11 @@ public class Tile : MonoBehaviour
     public HexCoordinates Coordinates { get; private set; }
     private Color _baseColor;
     private Material _ownMaterial;
-
-
-    public void Highlight(Color color)
-    {
-        _ownMaterial.color = Color.Lerp(_baseColor, color, 0.35f);
-    }
     
-    
-    public void ClearHighlight()
-    {
-        _ownMaterial.color =  _baseColor;
-    }
     
     private void Awake()
     {
-        var parent = transform.parent.GetComponentInParent<HexGrid>().hexGridSettings;
+        var parent = transform.parent.GetComponentInParent<HexGrid>().settings;
         Coordinates = HexCoordinates.FromPixelCoordinates(transform.position, parent);
     }
 
@@ -36,5 +25,10 @@ public class Tile : MonoBehaviour
 
         _baseColor = Color.HSVToRGB(h, s, v);
         _ownMaterial.color = _baseColor;
+    }
+
+    public HexCoordinates CoordinatesWhenStandingOn(int height)
+    {
+        return Coordinates + new HexCoordinates(0, 0, 0, height);
     }
 }

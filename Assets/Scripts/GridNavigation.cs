@@ -40,7 +40,7 @@ public static class GridNavigation
                         continue;
                 }
 
-                if (EntityManager.Instance.IsTileOccupied(neighboringTile)) continue;
+                if (IsTileOccupied(neighboringTile)) continue;
                 
                 neighbors.Add(neighboringTile);
             }
@@ -127,7 +127,7 @@ public static class GridNavigation
         return true;
     }
 
-    public static Tile[] GetAllReachableTilesWithinRange(Tile start, MovementStats stats, int height)
+    public static List<Tile> GetAllReachableTilesWithinRange(Tile start, MovementStats stats, int height)
     {
         var visited = new HashSet<Tile>();
         var queue = new Queue<(Tile tile, int distance)>();
@@ -151,7 +151,41 @@ public static class GridNavigation
                 }
             }
         }
+        
+        return visited.ToList();
+    }
+    
+    public static bool IsTileOccupied(Tile tile)
+    {
+        var tileCoords = tile.Coordinates;
+        var occupied = EntityManager.Instance.entities.Any(e => e.Coordinates.Equals2D(tileCoords) && e.StandingOnTile == tile);
+        return occupied;
+    }
 
-        return visited.ToArray();
+    public static bool IsEntityVisible(HexCoordinates from, Entity target)
+    {
+        var fromPos = from.ToPixelCoordinates(HexGrid.Instance.settings);
+        var toPos = target.transform.position;
+        var direction = toPos - fromPos;
+        if (Physics.Raycast(fromPos + direction.normalized, direction, out var hit, direction.magnitude))
+        {
+            return hit.collider.gameObject == target.gameObject;
+        }
+        return true;
+    }
+    
+    public static bool IsEntityInWeaponsRange(HexCoordinates from, Entity target, WeaponStats weapon)
+    {
+        if(!IsEntityVisible(from, target)) return false;
+        var distance = HexCoordinates.Distance(from, target.Coordinates);
+        return distance <= weapon.range;
+    }
+
+    public static List<Entity> GetAllEntitiesInWeaponsRange(Actor from, WeaponStats weapon)
+    {
+        var entities = EntityManager.Instance.entities;
+        var inRange = entities.Where(entity => IsEntityInWeaponsRange(from.entity.Coordinates, entity, weapon)).ToList();
+        inRange.Remove(from.entity);
+        return inRange;
     }
 }

@@ -7,5 +7,4 @@ public class HexGridSettings : ScriptableObject
     public float tileRadius = 0;
     public float tileHeight = 0;
 
-    public bool IsConfigured => tileRadius > 0 && tileHeight > 0;
 }

@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b9549de333a4dca8bd8b63fdfb942e8, type: 3}
-  m_Name: EnemyMovementStats
-  m_EditorClassIdentifier: Assembly-CSharp::MovementStats
-  movementRange: 1
-  climbHeight: 1
-  dropHeight: 1
+  m_Script: {fileID: 11500000, guid: 61f8d128aa41453eb4650278eac6c8a2, type: 3}
+  m_Name: Bow
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponStats
+  range: 100

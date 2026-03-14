@@ -13,7 +13,7 @@ public class HexGrid : MonoBehaviour
     
     public static HexGrid Instance { get; private set; }
 
-    public HexGridSettings hexGridSettings;
+    public HexGridSettings settings;
     
     private Dictionary<HexCoordinates, Tile> _tileDictionary;
     
